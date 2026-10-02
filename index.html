@@ -220,11 +220,18 @@
               <span class="numero-bloque">05</span>
               <div><h2>Registro fotografico</h2><p>Puede seleccionar una o varias imagenes en formato JPG, PNG o WEBP.</p></div>
             </div>
-            <label class="selector-archivos" for="evidencias">
-              <span class="icono-carga" aria-hidden="true">↑</span>
-              <span><strong>Seleccionar fotografias</strong><small>Las imagenes permanecen guardadas en este navegador durante la sesion.</small></span>
-            </label>
-            <input id="evidencias" name="evidencias" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden>
+            <div class="acciones-evidencias">
+              <label class="selector-archivos" for="camara-evidencia">
+                <span class="icono-carga" aria-hidden="true">◉</span>
+                <span><strong>Tomar fotografia</strong><small>Use la camara trasera del dispositivo.</small></span>
+              </label>
+              <label class="selector-archivos" for="galeria-evidencias">
+                <span class="icono-carga" aria-hidden="true">↑</span>
+                <span><strong>Seleccionar archivos</strong><small>Adjunte una o varias imagenes existentes.</small></span>
+              </label>
+            </div>
+            <input id="camara-evidencia" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" hidden>
+            <input id="galeria-evidencias" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden>
             <p id="mensaje-evidencias" class="mensaje-ayuda" role="status" aria-live="polite">Aun no ha seleccionado fotografias.</p>
             <div id="vista-evidencias" class="vista-evidencias" aria-live="polite"></div>
           </div>

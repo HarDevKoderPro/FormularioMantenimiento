@@ -145,6 +145,7 @@ h1, h2, p { margin-top: 0; }
 .campo-observacion textarea { width: 100%; min-height: 94px; padding: 13px 14px; resize: vertical; border: 1px solid #d7d5e1; border-radius: 9px; outline: 0; color: var(--tinta); font: inherit; font-size: 14px; line-height: 1.45; }
 .campo-observacion textarea:focus { border-color: var(--violeta-600); box-shadow: 0 0 0 3px rgb(98 70 216 / 13%); }
 .campo-observacion textarea::placeholder { color: #a09eac; }
+.acciones-evidencias { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .selector-archivos { display: flex; align-items: center; gap: 15px; padding: 19px; border: 1px dashed #afa7d9; border-radius: 11px; background: #faf9ff; cursor: pointer; }
 .icono-carga { display: grid; flex: 0 0 42px; width: 42px; height: 42px; place-items: center; border-radius: 10px; background: var(--violeta-100); color: var(--violeta-800); font: 28px Manrope, sans-serif; }
 .selector-archivos strong, .selector-archivos small { display: block; }.selector-archivos strong { margin-bottom: 3px; color: var(--violeta-800); font: 700 14px Manrope, sans-serif; }.selector-archivos small, .mensaje-ayuda { color: var(--texto-suave); font-size: 12px; line-height: 1.4; }.mensaje-ayuda { margin: 12px 0 0; }
@@ -175,6 +176,7 @@ h1, h2, p { margin-top: 0; }
   .encabezado-paso > p:last-child { font-size: 15px; }
   .rejilla-campos { grid-template-columns: 1fr; }
   .lista-tareas { grid-template-columns: 1fr; }
+  .acciones-evidencias { grid-template-columns: 1fr; }
   .resumen-equipo dl { grid-template-columns: 1fr; gap: 11px; }
   .campo-ancho { grid-column: auto; }
   .acciones-paso { align-items: stretch; flex-direction: column-reverse; }

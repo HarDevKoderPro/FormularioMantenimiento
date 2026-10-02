@@ -11,7 +11,8 @@ const botonVolverChequeo = document.querySelector("[data-volver-chequeo]");
 const botonContinuarEvidencias = document.querySelector("[data-continuar-evidencias]");
 const botonVolverCierre = document.querySelector("[data-volver-cierre]");
 const botonGuardarEquipo = document.querySelector("[data-guardar-equipo]");
-const entradaEvidencias = document.querySelector("#evidencias");
+const entradaCamara = document.querySelector("#camara-evidencia");
+const entradaGaleria = document.querySelector("#galeria-evidencias");
 const vistaEvidencias = document.querySelector("#vista-evidencias");
 const mensajeEvidencias = document.querySelector("#mensaje-evidencias");
 let evidencias = [];
@@ -87,12 +88,8 @@ botonVolverCierre.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-entradaEvidencias.addEventListener("change", () => {
-  const archivosValidos = [...entradaEvidencias.files].filter((archivo) => archivo.type.startsWith("image/"));
-  evidencias = [...evidencias, ...archivosValidos];
-  entradaEvidencias.value = "";
-  renderizarEvidencias();
-});
+entradaCamara.addEventListener("change", () => agregarEvidencias(entradaCamara));
+entradaGaleria.addEventListener("change", () => agregarEvidencias(entradaGaleria));
 
 vistaEvidencias.addEventListener("click", (evento) => {
   const boton = evento.target.closest("[data-eliminar-evidencia]");
@@ -169,4 +166,11 @@ function renderizarEvidencias() {
     elemento.append(imagen, boton);
     vistaEvidencias.append(elemento);
   });
+}
+
+function agregarEvidencias(entrada) {
+  const archivosValidos = [...entrada.files].filter((archivo) => archivo.type.startsWith("image/"));
+  evidencias = [...evidencias, ...archivosValidos];
+  entrada.value = "";
+  renderizarEvidencias();
 }
