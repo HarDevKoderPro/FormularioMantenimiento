@@ -6,6 +6,7 @@ const pasoEquipo = document.querySelector("#paso-equipo");
 const pasoCierreEquipo = document.querySelector("#paso-cierre-equipo");
 const pasoEvidencias = document.querySelector("#paso-evidencias");
 const pasoEquipoGuardado = document.querySelector("#paso-equipo-guardado");
+const panelSesion = document.querySelector("#panel-sesion");
 const botonVolverSesion = document.querySelector("[data-volver-sesion]");
 const botonContinuarChequeo = document.querySelector("[data-continuar-chequeo]");
 const botonVolverChequeo = document.querySelector("[data-volver-chequeo]");
@@ -14,6 +15,8 @@ const botonVolverCierre = document.querySelector("[data-volver-cierre]");
 const botonGuardarEquipo = document.querySelector("[data-guardar-equipo]");
 const botonNuevoEquipo = document.querySelector("[data-nuevo-equipo]");
 const botonFinalizarSesion = document.querySelector("[data-finalizar-sesion]");
+const botonRegistrarDesdePanel = document.querySelector("[data-registrar-desde-panel]");
+const botonPrepararReportes = document.querySelector("[data-preparar-reportes]");
 const entradaCamara = document.querySelector("#camara-evidencia");
 const entradaGaleria = document.querySelector("#galeria-evidencias");
 const vistaEvidencias = document.querySelector("#vista-evidencias");
@@ -158,7 +161,22 @@ botonNuevoEquipo.addEventListener("click", () => {
 });
 
 botonFinalizarSesion.addEventListener("click", () => {
-  alert("La sesion permanece guardada. El siguiente paso implementara el panel de sesion y los reportes finales.");
+  pasoEquipoGuardado.hidden = true;
+  panelSesion.hidden = false;
+  renderizarPanelSesion();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+botonRegistrarDesdePanel.addEventListener("click", () => {
+  limpiarFormularioEquipo();
+  panelSesion.hidden = true;
+  pasoEquipo.hidden = false;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  document.querySelector("#serial-equipo").focus();
+});
+
+botonPrepararReportes.addEventListener("click", () => {
+  alert("El siguiente requisito generara los reportes individuales y el reporte consolidado de esta sesion.");
 });
 
 function mostrarPasoEquipo() {
@@ -226,4 +244,31 @@ function limpiarFormularioEquipo() {
   });
   evidencias = [];
   renderizarEvidencias();
+}
+
+function renderizarPanelSesion() {
+  const sesion = JSON.parse(localStorage.getItem(CLAVE_SESION));
+  if (!sesion) return;
+
+  const equipos = sesion.equipos;
+  const buenos = equipos.filter((equipo) => equipo.estadoGeneral === "Bueno").length;
+  const seguimiento = equipos.filter((equipo) => equipo.estadoGeneral === "Requiere seguimiento").length;
+  const criticos = equipos.filter((equipo) => equipo.estadoGeneral === "Critico").length;
+  const mantenidos = equipos.filter((equipo) => equipo.limpieza.length || equipo.software.length).length;
+  document.querySelector("#metrica-total").textContent = equipos.length;
+  document.querySelector("#metrica-buenos").textContent = buenos;
+  document.querySelector("#metrica-seguimiento").textContent = seguimiento;
+  document.querySelector("#metrica-criticos").textContent = criticos;
+  document.querySelector("#metrica-mantenidos").textContent = mantenidos;
+  document.querySelector("#descripcion-panel-sesion").textContent = `${sesion.responsable} · ${formatearFecha(sesion.fechaMantenimiento)} · ${sesion.correoDestino}`;
+  document.querySelector("#etiqueta-total-equipos").textContent = `${equipos.length} equipo${equipos.length === 1 ? "" : "s"}`;
+  const contenedor = document.querySelector("#equipos-sesion");
+  contenedor.innerHTML = "";
+  equipos.forEach((equipo) => {
+    const fila = document.createElement("article");
+    const claseEstado = equipo.estadoGeneral === "Bueno" ? "bueno" : equipo.estadoGeneral === "Critico" ? "critico" : "seguimiento";
+    fila.className = "fila-equipo-sesion";
+    fila.innerHTML = `<div><strong>${equipo.serial}</strong><small>${equipo.ubicacion}</small></div><small>${equipo.limpieza.length + equipo.software.length} tarea(s) realizada(s)</small><span class="estado-equipo ${claseEstado}">${equipo.estadoGeneral}</span><button class="boton-detalle-equipo" type="button">Ver detalle</button>`;
+    contenedor.append(fila);
+  });
 }

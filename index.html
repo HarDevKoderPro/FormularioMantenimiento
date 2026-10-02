@@ -263,6 +263,16 @@
             </div>
           </div>
         </section>
+        <section id="panel-sesion" class="paso-formulario" aria-labelledby="titulo-panel-sesion" hidden>
+          <div class="progreso" aria-hidden="true"><span class="progreso-activo"></span><span class="progreso-activo"></span><span class="progreso-activo"></span></div>
+          <div class="encabezado-paso"><p class="eyebrow">Sesion activa <span>/ Panel de control</span></p><h1 id="titulo-panel-sesion">Resumen de mantenimiento</h1><p id="descripcion-panel-sesion">Consulte los equipos registrados y genere los reportes al finalizar la jornada.</p></div>
+          <section class="metricas-sesion" aria-labelledby="titulo-metricas-sesion">
+            <h2 id="titulo-metricas-sesion" class="texto-solo-lector">Indicadores de la sesion</h2>
+            <article><span class="valor-metrica" id="metrica-total">0</span><span>Equipos revisados</span></article><article class="metrica-buena"><span class="valor-metrica" id="metrica-buenos">0</span><span>En buen estado</span></article><article class="metrica-seguimiento"><span class="valor-metrica" id="metrica-seguimiento">0</span><span>Con seguimiento</span></article><article class="metrica-critica"><span class="valor-metrica" id="metrica-criticos">0</span><span>Estado critico</span></article><article><span class="valor-metrica" id="metrica-mantenidos">0</span><span>Con mantenimiento</span></article>
+          </section>
+          <div class="lista-equipos-sesion"><div class="encabezado-lista-equipos"><div><h2>Equipos registrados</h2><p>El detalle se conserva en este navegador hasta que cierre la sesion.</p></div><span id="etiqueta-total-equipos">0 equipos</span></div><div id="equipos-sesion" class="equipos-sesion"></div></div>
+          <div class="acciones-paso acciones-panel"><button class="boton-secundario" type="button" data-registrar-desde-panel>Registrar otro equipo</button><button class="boton-primario" type="button" data-preparar-reportes>Preparar reportes <span aria-hidden="true">→</span></button></div>
+        </section>
       </form>
     </main>
     <script src="js/app.js"></script>
