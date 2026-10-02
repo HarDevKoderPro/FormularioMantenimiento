@@ -92,6 +92,7 @@ h1, h2, p { margin-top: 0; }
 .campo-formulario span[aria-hidden="true"], .acciones-paso p span { color: var(--requerido); }
 .campo-formulario { min-width: 0; }
 .campo-formulario input { width: 100%; min-width: 0; height: 48px; padding: 0 14px; border: 1px solid #d7d5e1; border-radius: 9px; outline: 0; background: var(--blanco); color: var(--tinta); font: inherit; font-size: 15px; transition: border-color .18s, box-shadow .18s; }
+.campo-formulario input[type="date"] { display: block; inline-size: 100%; max-inline-size: 100%; -webkit-appearance: none; appearance: none; }
 .campo-formulario select { width: 100%; min-width: 0; height: 48px; padding: 0 40px 0 14px; border: 1px solid #d7d5e1; border-radius: 9px; outline: 0; background: var(--blanco); color: var(--tinta); font: inherit; font-size: 15px; }
 .campo-formulario input::placeholder { color: #a09eac; }
 .campo-formulario input:focus { border-color: var(--violeta-600); box-shadow: 0 0 0 3px rgb(98 70 216 / 13%); }
