@@ -23,5 +23,8 @@ Construir un formulario de mantenimiento que replique, de la mejor forma posible
 - Se recibieron capturas de las tres secciones del formulario actual.
 - Se implemento la estructura semantica inicial de la cabecera institucional y la seccion 1.
 - Se redisenaron la cabecera y la seccion 1 con una interfaz institucional propia, adaptable a pantallas pequenas.
+- La primera seccion ahora crea y guarda una sesion de mantenimiento en `localStorage`.
+- Los datos de sesion son responsable, fecha y correo destino; el serial y la ubicacion seran datos de cada equipo.
+- Se implemento el registro inicial de cada equipo y su matriz de diagnostico de hardware.
 - Pendiente: recibir capturas o imagenes del reporte de referencia, ya que el PDF no se puede leer directamente en este entorno.
-- Pendiente: implementar la seccion 2, lista de chequeo de mantenimiento.
+- Pendiente: implementar las tareas realizadas, observaciones y evidencias para completar el registro individual.

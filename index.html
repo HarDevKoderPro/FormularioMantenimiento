@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Mantenimiento Preventivo</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
     <main class="aplicacion-mantenimiento">
@@ -13,26 +13,26 @@
           <img
             src="assets/Logotipo.png"
             alt="Institucion Educativa Concejo Municipal El Porvenir"
-          />
+          >
         </div>
-        <div class="estado-formulario" aria-label="Progreso del formulario">
+        <aside class="estado-formulario" aria-label="Progreso del formulario">
           <span>Registro de mantenimiento</span>
-          <strong>Paso 1 de 3</strong>
-        </div>
+          <strong>Inicio de sesion</strong>
+        </aside>
       </header>
 
       <form id="formulario-mantenimiento" novalidate>
-        <section class="paso-formulario" aria-labelledby="titulo-seccion-datos">
+        <section id="paso-sesion" class="paso-formulario" aria-labelledby="titulo-seccion-datos">
           <div class="progreso" aria-hidden="true">
             <span class="progreso-activo"></span><span></span><span></span>
           </div>
 
           <div class="encabezado-paso">
-            <p class="eyebrow">Paso 01 <span>/ Identificacion</span></p>
-            <h1 id="titulo-seccion-datos">Registro de mantenimiento preventivo</h1>
+            <p class="eyebrow">Paso 01 <span>/ Sesion de mantenimiento</span></p>
+            <h1 id="titulo-seccion-datos">Inicie una sesion de mantenimiento</h1>
             <p>
-              Registre la informacion del equipo y del responsable antes de
-              realizar la revision tecnica.
+              Defina los datos generales que se aplicaran a todos los equipos
+              registrados durante esta jornada.
             </p>
           </div>
 
@@ -40,50 +40,102 @@
             <div class="encabezado-bloque">
               <span class="numero-bloque">01</span>
               <div>
-                <h2>Informacion del servicio</h2>
-                <p>Datos para identificar el registro de mantenimiento.</p>
+                <h2>Datos de la sesion</h2>
+                <p>Estos datos se conservaran hasta finalizar la jornada.</p>
               </div>
             </div>
 
             <div class="rejilla-campos">
-              <div class="campo-formulario campo-ancho">
-                <label for="correo">Correo institucional <span aria-hidden="true">*</span></label>
-                <input id="correo" name="correo" type="email" autocomplete="email" placeholder="nombre@institucion.edu.co" required />
+              <div class="campo-formulario">
+                <label for="correo">Correo para recibir el reporte <span aria-hidden="true">*</span></label>
+                <input id="correo" name="correo" type="email" autocomplete="email" placeholder="nombre@correo.com" required>
               </div>
 
               <div class="campo-formulario">
                 <label for="responsable">Responsable <span aria-hidden="true">*</span></label>
-                <input id="responsable" name="responsable" type="text" autocomplete="name" placeholder="Nombre completo" required />
-              </div>
-
-              <div class="campo-formulario">
-                <label for="fecha-mantenimiento">Fecha de mantenimiento <span aria-hidden="true">*</span></label>
-                <input id="fecha-mantenimiento" name="fecha-mantenimiento" type="date" required />
+                <input id="responsable" name="responsable" type="text" autocomplete="name" placeholder="Nombre completo" required>
               </div>
 
               <div class="campo-formulario campo-ancho">
-                <label for="serial-equipo">Serial del equipo <span aria-hidden="true">*</span></label>
-                <input id="serial-equipo" name="serial-equipo" type="text" placeholder="Ej. PF4X9A2B7C" required />
+                <label for="fecha-mantenimiento">Fecha de mantenimiento <span aria-hidden="true">*</span></label>
+                <input id="fecha-mantenimiento" name="fecha-mantenimiento" type="date" required>
               </div>
             </div>
           </div>
 
-          <fieldset class="bloque-ubicacion">
-            <legend>
-              <span class="numero-bloque">02</span>
-              <span><strong>Ubicacion del equipo</strong><small>Seleccione el aula donde se encuentra el computador.</small></span>
-            </legend>
-            <div class="opciones-ubicacion">
-              <label><input name="ubicacion" type="radio" value="Sala 1" required /><span>Sala 1</span></label>
-              <label><input name="ubicacion" type="radio" value="Sala 2" /><span>Sala 2</span></label>
-              <label><input name="ubicacion" type="radio" value="Sala 3" /><span>Sala 3</span></label>
-              <label><input name="ubicacion" type="radio" value="Sala 4" /><span>Sala 4</span></label>
-            </div>
-          </fieldset>
-
           <div class="acciones-paso">
             <p><span aria-hidden="true">*</span> Campos obligatorios</p>
-            <button class="boton-primario" type="button">Continuar <span aria-hidden="true">→</span></button>
+            <button class="boton-primario" type="submit">Crear sesion <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section id="paso-equipo" class="paso-formulario" aria-labelledby="titulo-seccion-equipo" hidden>
+          <div class="progreso" aria-hidden="true">
+            <span class="progreso-activo"></span><span class="progreso-activo"></span><span></span>
+          </div>
+
+          <div class="encabezado-paso">
+            <p class="eyebrow">Paso 02 <span>/ Registro del equipo</span></p>
+            <h1 id="titulo-seccion-equipo">Revise el estado del equipo</h1>
+            <p>Identifique el computador y registre el resultado de la inspeccion inicial de sus componentes fisicos.</p>
+          </div>
+
+          <div class="bloque-campos">
+            <div class="encabezado-bloque">
+              <span class="numero-bloque">01</span>
+              <div>
+                <h2>Identificacion del equipo</h2>
+                <p>Informacion requerida para relacionar este registro con el inventario.</p>
+              </div>
+            </div>
+
+            <div class="rejilla-campos">
+              <div class="campo-formulario">
+                <label for="serial-equipo">Serial del equipo <span aria-hidden="true">*</span></label>
+                <input id="serial-equipo" name="serial-equipo" type="text" placeholder="Ej. PF4X9A2B7C">
+              </div>
+
+              <div class="campo-formulario">
+                <label for="ubicacion-equipo">Ubicacion <span aria-hidden="true">*</span></label>
+                <select id="ubicacion-equipo" name="ubicacion-equipo">
+                  <option value="">Seleccione una sala</option>
+                  <option value="Sala 1">Sala 1</option>
+                  <option value="Sala 2">Sala 2</option>
+                  <option value="Sala 3">Sala 3</option>
+                  <option value="Sala 4">Sala 4</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="bloque-chequeo">
+            <div class="encabezado-bloque">
+              <span class="numero-bloque">02</span>
+              <div>
+                <h2>Diagnostico de hardware</h2>
+                <p>Seleccione una condicion para cada componente revisado.</p>
+              </div>
+            </div>
+
+            <div class="leyenda-estados" aria-hidden="true">
+              <span><i class="indicador bueno"></i>Bueno</span>
+              <span><i class="indicador regular"></i>Regular</span>
+              <span><i class="indicador malo"></i>Malo</span>
+            </div>
+
+            <div class="tabla-chequeo" role="group" aria-label="Estado del hardware">
+              <div class="cabecera-tabla" aria-hidden="true"><span>Componente</span><span>Bueno</span><span>Regular</span><span>Malo</span></div>
+              <div class="fila-chequeo" role="radiogroup" aria-label="Estado de encendido"><span class="nombre-componente">Encendido</span><label><input name="encendido" type="radio" value="Bueno"><span>Bueno</span></label><label><input name="encendido" type="radio" value="Regular"><span>Regular</span></label><label><input name="encendido" type="radio" value="Malo"><span>Malo</span></label></div>
+              <div class="fila-chequeo" role="radiogroup" aria-label="Estado de pantalla"><span class="nombre-componente">Pantalla</span><label><input name="pantalla" type="radio" value="Bueno"><span>Bueno</span></label><label><input name="pantalla" type="radio" value="Regular"><span>Regular</span></label><label><input name="pantalla" type="radio" value="Malo"><span>Malo</span></label></div>
+              <div class="fila-chequeo" role="radiogroup" aria-label="Estado de teclado"><span class="nombre-componente">Teclado</span><label><input name="teclado" type="radio" value="Bueno"><span>Bueno</span></label><label><input name="teclado" type="radio" value="Regular"><span>Regular</span></label><label><input name="teclado" type="radio" value="Malo"><span>Malo</span></label></div>
+              <div class="fila-chequeo" role="radiogroup" aria-label="Estado de TouchPad"><span class="nombre-componente">TouchPad</span><label><input name="touchpad" type="radio" value="Bueno"><span>Bueno</span></label><label><input name="touchpad" type="radio" value="Regular"><span>Regular</span></label><label><input name="touchpad" type="radio" value="Malo"><span>Malo</span></label></div>
+              <div class="fila-chequeo" role="radiogroup" aria-label="Estado de cargador"><span class="nombre-componente">Cargador</span><label><input name="cargador" type="radio" value="Bueno"><span>Bueno</span></label><label><input name="cargador" type="radio" value="Regular"><span>Regular</span></label><label><input name="cargador" type="radio" value="Malo"><span>Malo</span></label></div>
+            </div>
+          </div>
+
+          <div class="acciones-paso">
+            <button class="boton-secundario" type="button" data-volver-sesion>Volver</button>
+            <button class="boton-primario" type="button" data-continuar-chequeo>Continuar <span aria-hidden="true">→</span></button>
           </div>
         </section>
       </form>
