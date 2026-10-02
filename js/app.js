@@ -15,12 +15,34 @@ const entradaCamara = document.querySelector("#camara-evidencia");
 const entradaGaleria = document.querySelector("#galeria-evidencias");
 const vistaEvidencias = document.querySelector("#vista-evidencias");
 const mensajeEvidencias = document.querySelector("#mensaje-evidencias");
+const selectorFecha = document.querySelector("#selector-fecha");
+const fechaMantenimiento = document.querySelector("#fecha-mantenimiento");
+const textoFecha = document.querySelector("#texto-fecha");
 let evidencias = [];
+
+selectorFecha.addEventListener("click", () => {
+  if (typeof fechaMantenimiento.showPicker === "function") {
+    fechaMantenimiento.showPicker();
+    return;
+  }
+
+  fechaMantenimiento.click();
+});
+
+fechaMantenimiento.addEventListener("change", () => {
+  textoFecha.textContent = fechaMantenimiento.value ? formatearFecha(fechaMantenimiento.value) : "Seleccione la fecha";
+});
 
 formulario.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
   if (!formulario.reportValidity()) {
+    return;
+  }
+
+  if (!fechaMantenimiento.value) {
+    alert("Seleccione la fecha de mantenimiento antes de crear la sesion.");
+    selectorFecha.focus();
     return;
   }
 
@@ -173,4 +195,9 @@ function agregarEvidencias(entrada) {
   evidencias = [...evidencias, ...archivosValidos];
   entrada.value = "";
   renderizarEvidencias();
+}
+
+function formatearFecha(fecha) {
+  const [anio, mes, dia] = fecha.split("-");
+  return `${dia}/${mes}/${anio}`;
 }
