@@ -115,6 +115,7 @@ h1, h2, p { margin-top: 0; }
 .boton-primario span { font-size: 20px; font-weight: 400; line-height: 1; }
 .boton-secundario { min-height: 48px; padding: 0 18px; border: 1px solid #d4d1e2; border-radius: 9px; background: var(--blanco); color: var(--violeta-800); cursor: pointer; font: 700 14px Manrope, sans-serif; }
 .bloque-chequeo { margin: 24px 56px 0; padding: 28px; border: 1px solid var(--linea); border-radius: 14px; background: #fdfdff; }
+.bloque-tareas { margin: 24px 56px 0; padding: 28px; border: 1px solid var(--linea); border-radius: 14px; background: #fdfdff; }
 .bloque-chequeo .encabezado-bloque { margin-bottom: 17px; }
 .leyenda-estados { display: flex; gap: 16px; margin: 0 0 20px 43px; color: var(--texto-suave); font-size: 12px; }
 .leyenda-estados span { display: inline-flex; align-items: center; gap: 6px; }
@@ -132,6 +133,17 @@ h1, h2, p { margin-top: 0; }
 .fila-chequeo label:nth-of-type(3) { grid-column: 4; }
 .fila-chequeo input { width: 18px; height: 18px; margin: 0; accent-color: var(--violeta-600); }
 .fila-chequeo label span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lista-tareas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px 16px; }
+.lista-tareas label { display: flex; align-items: flex-start; gap: 10px; min-width: 0; padding: 12px; border: 1px solid #e3e1eb; border-radius: 9px; background: var(--blanco); cursor: pointer; color: #3d3b4b; font-size: 13px; line-height: 1.4; }
+.lista-tareas input { flex: 0 0 auto; width: 17px; height: 17px; margin: 0; accent-color: var(--violeta-600); }
+.lista-tareas label:has(input:checked) { border-color: #bcb1ee; background: var(--violeta-100); color: var(--violeta-800); }
+.lista-tareas-densa { grid-template-columns: 1fr; }
+.campo-observacion { margin-top: 23px; }
+.campo-observacion label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 700; }
+.campo-observacion span[aria-hidden="true"] { color: var(--requerido); }
+.campo-observacion textarea { width: 100%; min-height: 94px; padding: 13px 14px; resize: vertical; border: 1px solid #d7d5e1; border-radius: 9px; outline: 0; color: var(--tinta); font: inherit; font-size: 14px; line-height: 1.45; }
+.campo-observacion textarea:focus { border-color: var(--violeta-600); box-shadow: 0 0 0 3px rgb(98 70 216 / 13%); }
+.campo-observacion textarea::placeholder { color: #a09eac; }
 .mensaje-sesion { min-height: 0; margin: 0 56px 28px; color: #28744d; font-size: 14px; font-weight: 600; }
 .mensaje-sesion:not(:empty) { padding: 13px 15px; border: 1px solid #bfe4cf; border-radius: 9px; background: #effaf3; }
 
@@ -144,6 +156,7 @@ h1, h2, p { margin-top: 0; }
   .bloque-campos { margin: 24px 18px 0; padding: 21px 18px; }
   .bloque-ubicacion { margin: 24px 18px 0; }
   .bloque-chequeo { margin: 24px 18px 0; padding: 21px 18px; }
+  .bloque-tareas { margin: 24px 18px 0; padding: 21px 18px; }
   .acciones-paso { padding: 22px 18px 24px; }
   .mensaje-sesion { margin: 0 18px 22px; }
   .opciones-ubicacion { grid-template-columns: repeat(2, 1fr); }
@@ -153,6 +166,7 @@ h1, h2, p { margin-top: 0; }
   .encabezado-paso h1 { font-size: 28px; }
   .encabezado-paso > p:last-child { font-size: 15px; }
   .rejilla-campos { grid-template-columns: 1fr; }
+  .lista-tareas { grid-template-columns: 1fr; }
   .campo-ancho { grid-column: auto; }
   .acciones-paso { align-items: stretch; flex-direction: column-reverse; }
   .boton-primario { justify-content: center; }

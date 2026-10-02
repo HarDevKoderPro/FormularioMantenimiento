@@ -3,8 +3,11 @@ const CLAVE_SESION = "mantenimiento.sesionActiva";
 const formulario = document.querySelector("#formulario-mantenimiento");
 const pasoSesion = document.querySelector("#paso-sesion");
 const pasoEquipo = document.querySelector("#paso-equipo");
+const pasoCierreEquipo = document.querySelector("#paso-cierre-equipo");
 const botonVolverSesion = document.querySelector("[data-volver-sesion]");
 const botonContinuarChequeo = document.querySelector("[data-continuar-chequeo]");
+const botonVolverChequeo = document.querySelector("[data-volver-chequeo]");
+const botonContinuarEvidencias = document.querySelector("[data-continuar-evidencias]");
 
 formulario.addEventListener("submit", (evento) => {
   evento.preventDefault();
@@ -45,7 +48,27 @@ botonContinuarChequeo.addEventListener("click", () => {
     return;
   }
 
-  alert("El chequeo inicial esta completo. El siguiente paso agregara tareas, observaciones y evidencias antes de guardar el equipo.");
+  pasoEquipo.hidden = true;
+  pasoCierreEquipo.hidden = false;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+botonVolverChequeo.addEventListener("click", () => {
+  pasoCierreEquipo.hidden = true;
+  pasoEquipo.hidden = false;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+botonContinuarEvidencias.addEventListener("click", () => {
+  const observacionesHardware = document.querySelector("#observaciones-hardware");
+  const observacionesSoftware = document.querySelector("#observaciones-software");
+
+  if (!observacionesHardware.value.trim() || !observacionesSoftware.value.trim()) {
+    alert("Complete las observaciones de hardware y software antes de continuar.");
+    return;
+  }
+
+  alert("Las tareas y observaciones estan completas. El siguiente paso agregara las evidencias y el guardado del equipo.");
 });
 
 function mostrarPasoEquipo() {

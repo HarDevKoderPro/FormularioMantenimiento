@@ -27,4 +27,5 @@ Construir un formulario de mantenimiento que replique, de la mejor forma posible
 - Los datos de sesion son responsable, fecha y correo destino; el serial y la ubicacion seran datos de cada equipo.
 - Se implemento el registro inicial de cada equipo y su matriz de diagnostico de hardware.
 - Pendiente: recibir capturas o imagenes del reporte de referencia, ya que el PDF no se puede leer directamente en este entorno.
-- Pendiente: implementar las tareas realizadas, observaciones y evidencias para completar el registro individual.
+- Se implementaron las tareas de limpieza y software, junto con las observaciones tecnicas del equipo.
+- Pendiente: implementar las evidencias y el guardado del registro individual en la sesion.

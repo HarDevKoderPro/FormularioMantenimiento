@@ -138,6 +138,73 @@
             <button class="boton-primario" type="button" data-continuar-chequeo>Continuar <span aria-hidden="true">→</span></button>
           </div>
         </section>
+
+        <section id="paso-cierre-equipo" class="paso-formulario" aria-labelledby="titulo-seccion-cierre" hidden>
+          <div class="progreso" aria-hidden="true">
+            <span class="progreso-activo"></span><span class="progreso-activo"></span><span class="progreso-activo"></span>
+          </div>
+
+          <div class="encabezado-paso">
+            <p class="eyebrow">Paso 03 <span>/ Acciones y cierre</span></p>
+            <h1 id="titulo-seccion-cierre">Documente el mantenimiento realizado</h1>
+            <p>Seleccione las tareas ejecutadas y deje las observaciones necesarias para el historial tecnico del equipo.</p>
+          </div>
+
+          <div class="bloque-tareas">
+            <div class="encabezado-bloque">
+              <span class="numero-bloque">03</span>
+              <div>
+                <h2>Tareas de limpieza</h2>
+                <p>Marque las acciones de mantenimiento fisico realizadas.</p>
+              </div>
+            </div>
+            <div class="lista-tareas">
+              <label><input name="limpieza" type="checkbox" value="Soplado y limpieza de polvo interno"><span>Soplado y limpieza de polvo interno</span></label>
+              <label><input name="limpieza" type="checkbox" value="Aplicacion de pasta termica"><span>Aplicacion de pasta termica</span></label>
+              <label><input name="limpieza" type="checkbox" value="Limpieza de pantalla"><span>Limpieza de pantalla</span></label>
+              <label><input name="limpieza" type="checkbox" value="Limpieza de teclado"><span>Limpieza de teclado</span></label>
+              <label><input name="limpieza" type="checkbox" value="Limpieza de contactos de memoria RAM"><span>Limpieza de contactos de memoria RAM</span></label>
+            </div>
+            <div class="campo-observacion">
+              <label for="observaciones-hardware">Observaciones de hardware <span aria-hidden="true">*</span></label>
+              <textarea id="observaciones-hardware" name="observaciones-hardware" rows="3" placeholder="Describa fallas detectadas, recomendaciones o acciones pendientes."></textarea>
+            </div>
+          </div>
+
+          <div class="bloque-tareas">
+            <div class="encabezado-bloque">
+              <span class="numero-bloque">04</span>
+              <div>
+                <h2>Tareas de software</h2>
+                <p>Marque las acciones de configuracion o soporte aplicadas.</p>
+              </div>
+            </div>
+            <div class="lista-tareas lista-tareas-densa">
+              <label><input name="software" type="checkbox" value="Configuracion basica del sistema operativo"><span>Configuracion basica del sistema operativo</span></label>
+              <label><input name="software" type="checkbox" value="Limpieza de archivos temporales"><span>Limpieza de archivos temporales</span></label>
+              <label><input name="software" type="checkbox" value="Actualizacion de licencias de Windows y Office"><span>Actualizacion de licencias de Windows y Office</span></label>
+              <label><input name="software" type="checkbox" value="Instalacion de sistema operativo"><span>Instalacion de sistema operativo</span></label>
+              <label><input name="software" type="checkbox" value="Instalacion de Office"><span>Instalacion de Office</span></label>
+              <label><input name="software" type="checkbox" value="Instalacion de navegador web"><span>Instalacion de navegador web</span></label>
+              <label><input name="software" type="checkbox" value="Instalacion de compresor de archivos"><span>Instalacion de compresor de archivos</span></label>
+              <label><input name="software" type="checkbox" value="Instalacion de lector PDF"><span>Instalacion de lector PDF</span></label>
+              <label><input name="software" type="checkbox" value="Escaneo y limpieza de virus"><span>Escaneo y limpieza de virus</span></label>
+              <label><input name="software" type="checkbox" value="Desactivacion de programas de inicio"><span>Desactivacion de programas de inicio</span></label>
+              <label><input name="software" type="checkbox" value="Actualizacion de controladores"><span>Actualizacion de controladores</span></label>
+              <label><input name="software" type="checkbox" value="Desactivacion de actualizaciones automaticas"><span>Desactivacion de actualizaciones automaticas</span></label>
+              <label><input name="software" type="checkbox" value="Desactivacion de funcion de busqueda"><span>Desactivacion de funcion de busqueda</span></label>
+            </div>
+            <div class="campo-observacion">
+              <label for="observaciones-software">Observaciones de software <span aria-hidden="true">*</span></label>
+              <textarea id="observaciones-software" name="observaciones-software" rows="3" placeholder="Describa configuraciones aplicadas, novedades o pendientes."></textarea>
+            </div>
+          </div>
+
+          <div class="acciones-paso">
+            <button class="boton-secundario" type="button" data-volver-chequeo>Volver</button>
+            <button class="boton-primario" type="button" data-continuar-evidencias>Continuar <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
       </form>
     </main>
     <script src="js/app.js"></script>
