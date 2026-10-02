@@ -157,6 +157,8 @@ h1, h2, p { margin-top: 0; }
 .selector-archivos strong, .selector-archivos small { display: block; }.selector-archivos strong { margin-bottom: 3px; color: var(--violeta-800); font: 700 14px Manrope, sans-serif; }.selector-archivos small, .mensaje-ayuda { color: var(--texto-suave); font-size: 12px; line-height: 1.4; }.mensaje-ayuda { margin: 12px 0 0; }
 .vista-evidencias { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; margin-top: 18px; }.evidencia-miniatura { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: 9px; background: #eeeef3; }.evidencia-miniatura img { display: block; width: 100%; height: 100%; object-fit: cover; }.evidencia-miniatura button { position: absolute; top: 7px; right: 7px; display: grid; width: 27px; height: 27px; place-items: center; border: 0; border-radius: 50%; background: rgb(32 32 51 / 82%); color: #fff; cursor: pointer; font-size: 17px; }
 .resumen-equipo { margin: 24px 56px 0; padding: 24px 28px; border-radius: 14px; background: var(--violeta-950); color: #fff; }.resumen-equipo .eyebrow { margin-bottom: 8px; color: #aaa0e8; }.resumen-equipo h2 { margin-bottom: 18px; font: 700 20px Manrope, sans-serif; }.resumen-equipo dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 0; }.resumen-equipo dl div { padding-left: 14px; border-left: 1px solid rgb(255 255 255 / 20%); }.resumen-equipo dt { margin-bottom: 5px; color: #bdb7e8; font-size: 11px; font-weight: 700; text-transform: uppercase; }.resumen-equipo dd { margin: 0; font-size: 14px; font-weight: 600; }
+.resumen-equipo dl { grid-template-columns: repeat(2, 1fr); }
+.confirmacion-equipo { max-width: 620px; margin: 0 auto; padding: 68px 56px; text-align: center; }.icono-confirmacion { display: grid; width: 64px; height: 64px; margin: 0 auto 24px; place-items: center; border-radius: 50%; background: #e7f7ed; color: #26754d; font: 800 34px Manrope, sans-serif; }.confirmacion-equipo .eyebrow { margin-bottom: 12px; }.confirmacion-equipo h1 { margin-bottom: 13px; font: 800 clamp(28px, 4vw, 38px) Manrope, sans-serif; letter-spacing: -.045em; }.confirmacion-equipo > p:last-of-type { margin-bottom: 30px; color: var(--texto-suave); font-size: 16px; line-height: 1.55; }.acciones-confirmacion { display: flex; justify-content: center; gap: 12px; }
 .mensaje-sesion { min-height: 0; margin: 0 56px 28px; color: #28744d; font-size: 14px; font-weight: 600; }
 .mensaje-sesion:not(:empty) { padding: 13px 15px; border: 1px solid #bfe4cf; border-radius: 9px; background: #effaf3; }
 
@@ -184,9 +186,11 @@ h1, h2, p { margin-top: 0; }
   .lista-tareas { grid-template-columns: 1fr; }
   .acciones-evidencias { grid-template-columns: 1fr; }
   .resumen-equipo dl { grid-template-columns: 1fr; gap: 11px; }
+  .confirmacion-equipo { padding: 52px 24px; }
   .campo-ancho { grid-column: auto; }
   .acciones-paso { align-items: stretch; flex-direction: column-reverse; }
   .boton-primario { justify-content: center; }
+  .acciones-confirmacion { flex-direction: column; }
   .leyenda-estados { margin-left: 0; }
   .cabecera-tabla, .fila-chequeo { grid-template-columns: minmax(100px, 1.5fr) repeat(3, minmax(45px, 1fr)); }
   .cabecera-tabla { font-size: 9px; }

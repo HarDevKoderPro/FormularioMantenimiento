@@ -17,7 +17,7 @@
         </div>
         <aside class="estado-formulario" aria-label="Progreso del formulario">
           <span>Registro de mantenimiento</span>
-          <strong>Inicio de sesion</strong>
+          <strong id="contador-equipos">Inicio de sesion</strong>
         </aside>
       </header>
 
@@ -243,11 +243,24 @@
           </div>
           <aside class="resumen-equipo" aria-labelledby="titulo-resumen-equipo">
             <p class="eyebrow">Resumen del registro</p><h2 id="titulo-resumen-equipo">Equipo listo para guardar</h2>
-            <dl><div><dt>Serial</dt><dd id="resumen-serial">-</dd></div><div><dt>Ubicacion</dt><dd id="resumen-ubicacion">-</dd></div><div><dt>Estado general</dt><dd id="resumen-estado">-</dd></div></dl>
+            <dl><div><dt>Serial</dt><dd id="resumen-serial">-</dd></div><div><dt>Ubicacion</dt><dd id="resumen-ubicacion">-</dd></div></dl>
           </aside>
           <div class="acciones-paso">
             <button class="boton-secundario" type="button" data-volver-cierre>Volver</button>
             <button class="boton-primario" type="button" data-guardar-equipo>Guardar equipo <span aria-hidden="true">✓</span></button>
+          </div>
+        </section>
+        <section id="paso-equipo-guardado" class="paso-formulario" aria-labelledby="titulo-equipo-guardado" hidden>
+          <div class="progreso" aria-hidden="true"><span class="progreso-activo"></span><span class="progreso-activo"></span><span class="progreso-activo"></span></div>
+          <div class="confirmacion-equipo">
+            <span class="icono-confirmacion" aria-hidden="true">✓</span>
+            <p class="eyebrow">Registro guardado</p>
+            <h1 id="titulo-equipo-guardado">Equipo agregado a la sesion</h1>
+            <p id="mensaje-equipo-guardado">El equipo fue registrado correctamente.</p>
+            <div class="acciones-confirmacion">
+              <button class="boton-primario" type="button" data-nuevo-equipo>Registrar otro equipo <span aria-hidden="true">→</span></button>
+              <button class="boton-secundario" type="button" data-finalizar-sesion>Finalizar sesion</button>
+            </div>
           </div>
         </section>
       </form>

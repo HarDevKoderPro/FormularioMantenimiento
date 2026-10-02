@@ -5,18 +5,23 @@ const pasoSesion = document.querySelector("#paso-sesion");
 const pasoEquipo = document.querySelector("#paso-equipo");
 const pasoCierreEquipo = document.querySelector("#paso-cierre-equipo");
 const pasoEvidencias = document.querySelector("#paso-evidencias");
+const pasoEquipoGuardado = document.querySelector("#paso-equipo-guardado");
 const botonVolverSesion = document.querySelector("[data-volver-sesion]");
 const botonContinuarChequeo = document.querySelector("[data-continuar-chequeo]");
 const botonVolverChequeo = document.querySelector("[data-volver-chequeo]");
 const botonContinuarEvidencias = document.querySelector("[data-continuar-evidencias]");
 const botonVolverCierre = document.querySelector("[data-volver-cierre]");
 const botonGuardarEquipo = document.querySelector("[data-guardar-equipo]");
+const botonNuevoEquipo = document.querySelector("[data-nuevo-equipo]");
+const botonFinalizarSesion = document.querySelector("[data-finalizar-sesion]");
 const entradaCamara = document.querySelector("#camara-evidencia");
 const entradaGaleria = document.querySelector("#galeria-evidencias");
 const vistaEvidencias = document.querySelector("#vista-evidencias");
 const mensajeEvidencias = document.querySelector("#mensaje-evidencias");
 const fechaMantenimiento = document.querySelector("#fecha-mantenimiento");
 const textoFecha = document.querySelector("#texto-fecha");
+const contadorEquipos = document.querySelector("#contador-equipos");
+const mensajeEquipoGuardado = document.querySelector("#mensaje-equipo-guardado");
 let evidencias = [];
 
 fechaMantenimiento.addEventListener("change", () => {
@@ -48,6 +53,7 @@ formulario.addEventListener("submit", (evento) => {
   };
 
   localStorage.setItem(CLAVE_SESION, JSON.stringify(sesion));
+  actualizarContadorEquipos(sesion);
   mostrarPasoEquipo();
 });
 
@@ -136,7 +142,23 @@ botonGuardarEquipo.addEventListener("click", () => {
 
   sesion.equipos.push(equipo);
   localStorage.setItem(CLAVE_SESION, JSON.stringify(sesion));
-  alert(`Equipo ${equipo.serial} guardado en la sesion. Equipos registrados: ${sesion.equipos.length}.`);
+  actualizarContadorEquipos(sesion);
+  mensajeEquipoGuardado.textContent = `El equipo ${equipo.serial} fue registrado correctamente. La sesion tiene ${sesion.equipos.length} equipo(s) gestionado(s).`;
+  pasoEvidencias.hidden = true;
+  pasoEquipoGuardado.hidden = false;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+botonNuevoEquipo.addEventListener("click", () => {
+  limpiarFormularioEquipo();
+  pasoEquipoGuardado.hidden = true;
+  pasoEquipo.hidden = false;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  document.querySelector("#serial-equipo").focus();
+});
+
+botonFinalizarSesion.addEventListener("click", () => {
+  alert("La sesion permanece guardada. El siguiente paso implementara el panel de sesion y los reportes finales.");
 });
 
 function mostrarPasoEquipo() {
@@ -155,10 +177,8 @@ function calcularEstadoGeneral(diagnostico) {
 
 function actualizarResumenEquipo() {
   const datos = new FormData(formulario);
-  const diagnostico = Object.fromEntries(["encendido", "pantalla", "teclado", "touchpad", "cargador"].map((componente) => [componente, datos.get(componente)]));
   document.querySelector("#resumen-serial").textContent = datos.get("serial-equipo").trim();
   document.querySelector("#resumen-ubicacion").textContent = datos.get("ubicacion-equipo");
-  document.querySelector("#resumen-estado").textContent = calcularEstadoGeneral(diagnostico);
 }
 
 function renderizarEvidencias() {
@@ -190,4 +210,20 @@ function agregarEvidencias(entrada) {
 function formatearFecha(fecha) {
   const [anio, mes, dia] = fecha.split("-");
   return `${dia}/${mes}/${anio}`;
+}
+
+function actualizarContadorEquipos(sesion) {
+  const total = sesion.equipos.length;
+  contadorEquipos.textContent = `${total} equipo${total === 1 ? "" : "s"} registrado${total === 1 ? "" : "s"}`;
+}
+
+function limpiarFormularioEquipo() {
+  ["serial-equipo", "ubicacion-equipo", "observaciones-hardware", "observaciones-software"].forEach((id) => {
+    document.querySelector(`#${id}`).value = "";
+  });
+  formulario.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach((entrada) => {
+    entrada.checked = false;
+  });
+  evidencias = [];
+  renderizarEvidencias();
 }

@@ -29,4 +29,5 @@ Construir un formulario de mantenimiento que replique, de la mejor forma posible
 - Pendiente: recibir capturas o imagenes del reporte de referencia, ya que el PDF no se puede leer directamente en este entorno.
 - Se implementaron las tareas de limpieza y software, junto con las observaciones tecnicas del equipo.
 - Se implementaron las evidencias fotograficas y el guardado del registro individual en la sesion.
+- Al guardar un equipo se permite iniciar otro registro independiente o finalizar la sesion.
 - Pendiente: crear el panel de sesion para administrar equipos y generar reportes.
