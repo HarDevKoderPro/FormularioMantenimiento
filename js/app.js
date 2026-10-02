@@ -254,6 +254,7 @@ function renderizarPanelSesion() {
   const equipos = sesion.equipos;
   const buenos = equipos.filter((equipo) => equipo.estadoGeneral === "Bueno").length;
   const malos = equipos.filter((equipo) => equipo.estadoGeneral === "Malo").length;
+  document.querySelector("#metrica-total").textContent = equipos.length;
   document.querySelector("#metrica-buenos").textContent = buenos;
   document.querySelector("#metrica-malos").textContent = malos;
   document.querySelector("#descripcion-panel-sesion").textContent = `${sesion.responsable} · ${formatearFecha(sesion.fechaMantenimiento)} · ${sesion.correoDestino}`;
