@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de Mantenimiento Preventivo</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main class="aplicacion-mantenimiento">
+      <header class="encabezado-aplicacion">
+        <div class="marca-institucional">
+          <img
+            src="assets/Logotipo.png"
+            alt="Institucion Educativa Concejo Municipal El Porvenir"
+          />
+        </div>
+        <div class="estado-formulario" aria-label="Progreso del formulario">
+          <span>Registro de mantenimiento</span>
+          <strong>Paso 1 de 3</strong>
+        </div>
+      </header>
+
+      <form id="formulario-mantenimiento" novalidate>
+        <section class="paso-formulario" aria-labelledby="titulo-seccion-datos">
+          <div class="progreso" aria-hidden="true">
+            <span class="progreso-activo"></span><span></span><span></span>
+          </div>
+
+          <div class="encabezado-paso">
+            <p class="eyebrow">Paso 01 <span>/ Identificacion</span></p>
+            <h1 id="titulo-seccion-datos">Registro de mantenimiento preventivo</h1>
+            <p>
+              Registre la informacion del equipo y del responsable antes de
+              realizar la revision tecnica.
+            </p>
+          </div>
+
+          <div class="bloque-campos">
+            <div class="encabezado-bloque">
+              <span class="numero-bloque">01</span>
+              <div>
+                <h2>Informacion del servicio</h2>
+                <p>Datos para identificar el registro de mantenimiento.</p>
+              </div>
+            </div>
+
+            <div class="rejilla-campos">
+              <div class="campo-formulario campo-ancho">
+                <label for="correo">Correo institucional <span aria-hidden="true">*</span></label>
+                <input id="correo" name="correo" type="email" autocomplete="email" placeholder="nombre@institucion.edu.co" required />
+              </div>
+
+              <div class="campo-formulario">
+                <label for="responsable">Responsable <span aria-hidden="true">*</span></label>
+                <input id="responsable" name="responsable" type="text" autocomplete="name" placeholder="Nombre completo" required />
+              </div>
+
+              <div class="campo-formulario">
+                <label for="fecha-mantenimiento">Fecha de mantenimiento <span aria-hidden="true">*</span></label>
+                <input id="fecha-mantenimiento" name="fecha-mantenimiento" type="date" required />
+              </div>
+
+              <div class="campo-formulario campo-ancho">
+                <label for="serial-equipo">Serial del equipo <span aria-hidden="true">*</span></label>
+                <input id="serial-equipo" name="serial-equipo" type="text" placeholder="Ej. PF4X9A2B7C" required />
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="bloque-ubicacion">
+            <legend>
+              <span class="numero-bloque">02</span>
+              <span><strong>Ubicacion del equipo</strong><small>Seleccione el aula donde se encuentra el computador.</small></span>
+            </legend>
+            <div class="opciones-ubicacion">
+              <label><input name="ubicacion" type="radio" value="Sala 1" required /><span>Sala 1</span></label>
+              <label><input name="ubicacion" type="radio" value="Sala 2" /><span>Sala 2</span></label>
+              <label><input name="ubicacion" type="radio" value="Sala 3" /><span>Sala 3</span></label>
+              <label><input name="ubicacion" type="radio" value="Sala 4" /><span>Sala 4</span></label>
+            </div>
+          </fieldset>
+
+          <div class="acciones-paso">
+            <p><span aria-hidden="true">*</span> Campos obligatorios</p>
+            <button class="boton-primario" type="button">Continuar <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+      </form>
+    </main>
+    <script src="js/app.js"></script>
+  </body>
+</html>
