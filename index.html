@@ -205,6 +205,38 @@
             <button class="boton-primario" type="button" data-continuar-evidencias>Continuar <span aria-hidden="true">→</span></button>
           </div>
         </section>
+
+        <section id="paso-evidencias" class="paso-formulario" aria-labelledby="titulo-seccion-evidencias" hidden>
+          <div class="progreso" aria-hidden="true">
+            <span class="progreso-activo"></span><span class="progreso-activo"></span><span class="progreso-activo"></span>
+          </div>
+          <div class="encabezado-paso">
+            <p class="eyebrow">Cierre <span>/ Evidencias y guardado</span></p>
+            <h1 id="titulo-seccion-evidencias">Agregue las evidencias del servicio</h1>
+            <p>Adjunte fotografias del estado o proceso de mantenimiento. Estas evidencias se incluiran en el reporte individual.</p>
+          </div>
+          <div class="bloque-evidencias">
+            <div class="encabezado-bloque">
+              <span class="numero-bloque">05</span>
+              <div><h2>Registro fotografico</h2><p>Puede seleccionar una o varias imagenes en formato JPG, PNG o WEBP.</p></div>
+            </div>
+            <label class="selector-archivos" for="evidencias">
+              <span class="icono-carga" aria-hidden="true">↑</span>
+              <span><strong>Seleccionar fotografias</strong><small>Las imagenes permanecen guardadas en este navegador durante la sesion.</small></span>
+            </label>
+            <input id="evidencias" name="evidencias" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden>
+            <p id="mensaje-evidencias" class="mensaje-ayuda" role="status" aria-live="polite">Aun no ha seleccionado fotografias.</p>
+            <div id="vista-evidencias" class="vista-evidencias" aria-live="polite"></div>
+          </div>
+          <aside class="resumen-equipo" aria-labelledby="titulo-resumen-equipo">
+            <p class="eyebrow">Resumen del registro</p><h2 id="titulo-resumen-equipo">Equipo listo para guardar</h2>
+            <dl><div><dt>Serial</dt><dd id="resumen-serial">-</dd></div><div><dt>Ubicacion</dt><dd id="resumen-ubicacion">-</dd></div><div><dt>Estado general</dt><dd id="resumen-estado">-</dd></div></dl>
+          </aside>
+          <div class="acciones-paso">
+            <button class="boton-secundario" type="button" data-volver-cierre>Volver</button>
+            <button class="boton-primario" type="button" data-guardar-equipo>Guardar equipo <span aria-hidden="true">✓</span></button>
+          </div>
+        </section>
       </form>
     </main>
     <script src="js/app.js"></script>

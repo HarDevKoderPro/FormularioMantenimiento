@@ -28,4 +28,5 @@ Construir un formulario de mantenimiento que replique, de la mejor forma posible
 - Se implemento el registro inicial de cada equipo y su matriz de diagnostico de hardware.
 - Pendiente: recibir capturas o imagenes del reporte de referencia, ya que el PDF no se puede leer directamente en este entorno.
 - Se implementaron las tareas de limpieza y software, junto con las observaciones tecnicas del equipo.
-- Pendiente: implementar las evidencias y el guardado del registro individual en la sesion.
+- Se implementaron las evidencias fotograficas y el guardado del registro individual en la sesion.
+- Pendiente: crear el panel de sesion para administrar equipos y generar reportes.

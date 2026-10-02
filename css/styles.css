@@ -116,6 +116,7 @@ h1, h2, p { margin-top: 0; }
 .boton-secundario { min-height: 48px; padding: 0 18px; border: 1px solid #d4d1e2; border-radius: 9px; background: var(--blanco); color: var(--violeta-800); cursor: pointer; font: 700 14px Manrope, sans-serif; }
 .bloque-chequeo { margin: 24px 56px 0; padding: 28px; border: 1px solid var(--linea); border-radius: 14px; background: #fdfdff; }
 .bloque-tareas { margin: 24px 56px 0; padding: 28px; border: 1px solid var(--linea); border-radius: 14px; background: #fdfdff; }
+.bloque-evidencias { margin: 24px 56px 0; padding: 28px; border: 1px solid var(--linea); border-radius: 14px; background: #fdfdff; }
 .bloque-chequeo .encabezado-bloque { margin-bottom: 17px; }
 .leyenda-estados { display: flex; gap: 16px; margin: 0 0 20px 43px; color: var(--texto-suave); font-size: 12px; }
 .leyenda-estados span { display: inline-flex; align-items: center; gap: 6px; }
@@ -144,6 +145,11 @@ h1, h2, p { margin-top: 0; }
 .campo-observacion textarea { width: 100%; min-height: 94px; padding: 13px 14px; resize: vertical; border: 1px solid #d7d5e1; border-radius: 9px; outline: 0; color: var(--tinta); font: inherit; font-size: 14px; line-height: 1.45; }
 .campo-observacion textarea:focus { border-color: var(--violeta-600); box-shadow: 0 0 0 3px rgb(98 70 216 / 13%); }
 .campo-observacion textarea::placeholder { color: #a09eac; }
+.selector-archivos { display: flex; align-items: center; gap: 15px; padding: 19px; border: 1px dashed #afa7d9; border-radius: 11px; background: #faf9ff; cursor: pointer; }
+.icono-carga { display: grid; flex: 0 0 42px; width: 42px; height: 42px; place-items: center; border-radius: 10px; background: var(--violeta-100); color: var(--violeta-800); font: 28px Manrope, sans-serif; }
+.selector-archivos strong, .selector-archivos small { display: block; }.selector-archivos strong { margin-bottom: 3px; color: var(--violeta-800); font: 700 14px Manrope, sans-serif; }.selector-archivos small, .mensaje-ayuda { color: var(--texto-suave); font-size: 12px; line-height: 1.4; }.mensaje-ayuda { margin: 12px 0 0; }
+.vista-evidencias { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; margin-top: 18px; }.evidencia-miniatura { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: 9px; background: #eeeef3; }.evidencia-miniatura img { display: block; width: 100%; height: 100%; object-fit: cover; }.evidencia-miniatura button { position: absolute; top: 7px; right: 7px; display: grid; width: 27px; height: 27px; place-items: center; border: 0; border-radius: 50%; background: rgb(32 32 51 / 82%); color: #fff; cursor: pointer; font-size: 17px; }
+.resumen-equipo { margin: 24px 56px 0; padding: 24px 28px; border-radius: 14px; background: var(--violeta-950); color: #fff; }.resumen-equipo .eyebrow { margin-bottom: 8px; color: #aaa0e8; }.resumen-equipo h2 { margin-bottom: 18px; font: 700 20px Manrope, sans-serif; }.resumen-equipo dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 0; }.resumen-equipo dl div { padding-left: 14px; border-left: 1px solid rgb(255 255 255 / 20%); }.resumen-equipo dt { margin-bottom: 5px; color: #bdb7e8; font-size: 11px; font-weight: 700; text-transform: uppercase; }.resumen-equipo dd { margin: 0; font-size: 14px; font-weight: 600; }
 .mensaje-sesion { min-height: 0; margin: 0 56px 28px; color: #28744d; font-size: 14px; font-weight: 600; }
 .mensaje-sesion:not(:empty) { padding: 13px 15px; border: 1px solid #bfe4cf; border-radius: 9px; background: #effaf3; }
 
@@ -157,6 +163,8 @@ h1, h2, p { margin-top: 0; }
   .bloque-ubicacion { margin: 24px 18px 0; }
   .bloque-chequeo { margin: 24px 18px 0; padding: 21px 18px; }
   .bloque-tareas { margin: 24px 18px 0; padding: 21px 18px; }
+  .bloque-evidencias { margin: 24px 18px 0; padding: 21px 18px; }
+  .resumen-equipo { margin: 24px 18px 0; padding: 21px 18px; }
   .acciones-paso { padding: 22px 18px 24px; }
   .mensaje-sesion { margin: 0 18px 22px; }
   .opciones-ubicacion { grid-template-columns: repeat(2, 1fr); }
@@ -167,6 +175,7 @@ h1, h2, p { margin-top: 0; }
   .encabezado-paso > p:last-child { font-size: 15px; }
   .rejilla-campos { grid-template-columns: 1fr; }
   .lista-tareas { grid-template-columns: 1fr; }
+  .resumen-equipo dl { grid-template-columns: 1fr; gap: 11px; }
   .campo-ancho { grid-column: auto; }
   .acciones-paso { align-items: stretch; flex-direction: column-reverse; }
   .boton-primario { justify-content: center; }
