@@ -91,9 +91,10 @@ botonVolverChequeo.addEventListener("click", () => {
 botonContinuarEvidencias.addEventListener("click", () => {
   const observacionesHardware = document.querySelector("#observaciones-hardware");
   const observacionesSoftware = document.querySelector("#observaciones-software");
+  const conclusionTecnica = formulario.querySelector('input[name="conclusion-tecnica"]:checked');
 
-  if (!observacionesHardware.value.trim() || !observacionesSoftware.value.trim()) {
-    alert("Complete las observaciones de hardware y software antes de continuar.");
+  if (!observacionesHardware.value.trim() || !observacionesSoftware.value.trim() || !conclusionTecnica) {
+    alert("Complete las observaciones y seleccione la conclusion tecnica antes de continuar.");
     return;
   }
 
@@ -139,7 +140,7 @@ botonGuardarEquipo.addEventListener("click", () => {
     observacionesHardware: datos.get("observaciones-hardware").trim(),
     observacionesSoftware: datos.get("observaciones-software").trim(),
     evidencias: evidencias.map((archivo) => ({ nombre: archivo.name, tipo: archivo.type })),
-    estadoGeneral: calcularEstadoGeneral(diagnostico),
+    estadoGeneral: datos.get("conclusion-tecnica"),
     registradoEn: new Date().toISOString()
   };
 
@@ -252,23 +253,18 @@ function renderizarPanelSesion() {
 
   const equipos = sesion.equipos;
   const buenos = equipos.filter((equipo) => equipo.estadoGeneral === "Bueno").length;
-  const seguimiento = equipos.filter((equipo) => equipo.estadoGeneral === "Requiere seguimiento").length;
-  const criticos = equipos.filter((equipo) => equipo.estadoGeneral === "Critico").length;
-  const mantenidos = equipos.filter((equipo) => equipo.limpieza.length || equipo.software.length).length;
-  document.querySelector("#metrica-total").textContent = equipos.length;
+  const malos = equipos.filter((equipo) => equipo.estadoGeneral === "Malo").length;
   document.querySelector("#metrica-buenos").textContent = buenos;
-  document.querySelector("#metrica-seguimiento").textContent = seguimiento;
-  document.querySelector("#metrica-criticos").textContent = criticos;
-  document.querySelector("#metrica-mantenidos").textContent = mantenidos;
+  document.querySelector("#metrica-malos").textContent = malos;
   document.querySelector("#descripcion-panel-sesion").textContent = `${sesion.responsable} · ${formatearFecha(sesion.fechaMantenimiento)} · ${sesion.correoDestino}`;
   document.querySelector("#etiqueta-total-equipos").textContent = `${equipos.length} equipo${equipos.length === 1 ? "" : "s"}`;
   const contenedor = document.querySelector("#equipos-sesion");
   contenedor.innerHTML = "";
-  equipos.forEach((equipo) => {
+  equipos.forEach((equipo, indice) => {
     const fila = document.createElement("article");
-    const claseEstado = equipo.estadoGeneral === "Bueno" ? "bueno" : equipo.estadoGeneral === "Critico" ? "critico" : "seguimiento";
+    const claseEstado = equipo.estadoGeneral === "Bueno" ? "bueno" : "malo";
     fila.className = "fila-equipo-sesion";
-    fila.innerHTML = `<div><strong>${equipo.serial}</strong><small>${equipo.ubicacion}</small></div><small>${equipo.limpieza.length + equipo.software.length} tarea(s) realizada(s)</small><span class="estado-equipo ${claseEstado}">${equipo.estadoGeneral}</span><button class="boton-detalle-equipo" type="button">Ver detalle</button>`;
+    fila.innerHTML = `<span class="numero-equipo">${indice + 1}</span><strong>${equipo.serial}</strong><span class="estado-equipo ${claseEstado}">${equipo.estadoGeneral}</span>`;
     contenedor.append(fila);
   });
 }

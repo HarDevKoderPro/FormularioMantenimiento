@@ -206,6 +206,14 @@
             </div>
           </div>
 
+          <fieldset class="bloque-conclusion">
+            <legend><span class="numero-bloque">05</span><span><strong>Conclusion tecnica</strong><small>Defina el resultado final del mantenimiento preventivo.</small></span></legend>
+            <div class="opciones-conclusion">
+              <label><input name="conclusion-tecnica" type="radio" value="Bueno"><span><strong>Bueno</strong><small>Mantenimiento completo. Equipo listo para operar.</small></span></label>
+              <label><input name="conclusion-tecnica" type="radio" value="Malo"><span><strong>Malo</strong><small>Requiere reparacion fisica fuera del mantenimiento preventivo.</small></span></label>
+            </div>
+          </fieldset>
+
           <div class="acciones-paso">
             <button class="boton-secundario" type="button" data-volver-chequeo>Volver</button>
             <button class="boton-primario" type="button" data-continuar-evidencias>Continuar <span aria-hidden="true">→</span></button>
@@ -268,9 +276,9 @@
           <div class="encabezado-paso"><p class="eyebrow">Sesion activa <span>/ Panel de control</span></p><h1 id="titulo-panel-sesion">Resumen de mantenimiento</h1><p id="descripcion-panel-sesion">Consulte los equipos registrados y genere los reportes al finalizar la jornada.</p></div>
           <section class="metricas-sesion" aria-labelledby="titulo-metricas-sesion">
             <h2 id="titulo-metricas-sesion" class="texto-solo-lector">Indicadores de la sesion</h2>
-            <article><span class="valor-metrica" id="metrica-total">0</span><span>Equipos revisados</span></article><article class="metrica-buena"><span class="valor-metrica" id="metrica-buenos">0</span><span>En buen estado</span></article><article class="metrica-seguimiento"><span class="valor-metrica" id="metrica-seguimiento">0</span><span>Con seguimiento</span></article><article class="metrica-critica"><span class="valor-metrica" id="metrica-criticos">0</span><span>Estado critico</span></article><article><span class="valor-metrica" id="metrica-mantenidos">0</span><span>Con mantenimiento</span></article>
+            <article class="metrica-buena"><span class="valor-metrica" id="metrica-buenos">0</span><span>Buenos</span></article><article class="metrica-critica"><span class="valor-metrica" id="metrica-malos">0</span><span>Malos</span></article>
           </section>
-          <div class="lista-equipos-sesion"><div class="encabezado-lista-equipos"><div><h2>Equipos registrados</h2><p>El detalle se conserva en este navegador hasta que cierre la sesion.</p></div><span id="etiqueta-total-equipos">0 equipos</span></div><div id="equipos-sesion" class="equipos-sesion"></div></div>
+          <div class="lista-equipos-sesion"><div class="encabezado-lista-equipos"><div><h2>Equipos registrados</h2><p>El detalle se conserva en este navegador hasta que cierre la sesion.</p></div><span id="etiqueta-total-equipos">0 equipos</span></div><div class="cabecera-equipos"><span>#</span><span>Serial</span><span>Estado</span></div><div id="equipos-sesion" class="equipos-sesion"></div></div>
           <div class="acciones-paso acciones-panel"><button class="boton-secundario" type="button" data-registrar-desde-panel>Registrar otro equipo</button><button class="boton-primario" type="button" data-preparar-reportes>Preparar reportes <span aria-hidden="true">→</span></button></div>
         </section>
       </form>
