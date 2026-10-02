@@ -258,7 +258,6 @@ function renderizarPanelSesion() {
   document.querySelector("#metrica-buenos").textContent = buenos;
   document.querySelector("#metrica-malos").textContent = malos;
   document.querySelector("#descripcion-panel-sesion").textContent = `${sesion.responsable} · ${formatearFecha(sesion.fechaMantenimiento)} · ${sesion.correoDestino}`;
-  document.querySelector("#etiqueta-total-equipos").textContent = `${equipos.length} equipo${equipos.length === 1 ? "" : "s"}`;
   const contenedor = document.querySelector("#equipos-sesion");
   contenedor.innerHTML = "";
   equipos.forEach((equipo, indice) => {
