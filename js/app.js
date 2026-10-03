@@ -1,4 +1,6 @@
 const CLAVE_SESION = "mantenimiento.sesionActiva";
+const NOMBRE_BD_EVIDENCIAS = "mantenimiento.evidencias";
+const ALMACEN_EVIDENCIAS = "archivos";
 
 const formulario = document.querySelector("#formulario-mantenimiento");
 const pasoSesion = document.querySelector("#paso-sesion");
@@ -132,7 +134,7 @@ vistaEvidencias.addEventListener("click", (evento) => {
   renderizarEvidencias();
 });
 
-botonGuardarEquipo.addEventListener("click", () => {
+botonGuardarEquipo.addEventListener("click", async () => {
   const sesion = JSON.parse(localStorage.getItem(CLAVE_SESION));
   if (!sesion) {
     alert("No se encontro una sesion activa. Cree una nueva sesion antes de guardar el equipo.");
@@ -150,11 +152,12 @@ botonGuardarEquipo.addEventListener("click", () => {
     software: datos.getAll("software"),
     observacionesHardware: datos.get("observaciones-hardware").trim(),
     observacionesSoftware: datos.get("observaciones-software").trim(),
-    evidencias: evidencias.map((archivo) => ({ nombre: archivo.name, tipo: archivo.type })),
+    evidencias: evidencias.map((archivo) => ({ id: crypto.randomUUID(), nombre: archivo.name, tipo: archivo.type })),
     estadoGeneral: datos.get("conclusion-tecnica"),
     registradoEn: new Date().toISOString()
   };
 
+  await guardarEvidencias(equipo.evidencias, evidencias);
   sesion.equipos.push(equipo);
   localStorage.setItem(CLAVE_SESION, JSON.stringify(sesion));
   actualizarContadorEquipos(sesion);
@@ -187,7 +190,7 @@ botonRegistrarDesdePanel.addEventListener("click", () => {
   document.querySelector("#serial-equipo").focus();
 });
 
-botonPrepararReportes.addEventListener("click", () => {
+botonPrepararReportes.addEventListener("click", async () => {
   const sesion = JSON.parse(localStorage.getItem(CLAVE_SESION));
   if (!sesion || !sesion.equipos.length) {
     alert("Registre al menos un equipo antes de generar los reportes.");
@@ -200,7 +203,8 @@ botonPrepararReportes.addEventListener("click", () => {
     return;
   }
 
-  ventanaReporte.document.write(crearReporteIndividual(sesion));
+  const evidenciasPorEquipo = await obtenerEvidenciasSesion(sesion);
+  ventanaReporte.document.write(crearReportes(sesion, evidenciasPorEquipo));
   ventanaReporte.document.close();
 });
 
@@ -293,13 +297,14 @@ function renderizarPanelSesion() {
   });
 }
 
-function crearReporteIndividual(sesion) {
+function crearReportes(sesion, evidenciasPorEquipo) {
   const equipos = sesion.equipos.map((equipo, indice) => {
     const diagnostico = Object.entries(equipo.diagnostico).map(([componente, estado]) => `
       <tr><th scope="row">${escaparHtml(nombreComponente(componente))}</th><td>${escaparHtml(estado)}</td></tr>`).join("");
-    const evidencias = equipo.evidencias.length
-      ? equipo.evidencias.map((evidencia) => `<li>${escaparHtml(evidencia.nombre)}</li>`).join("")
-      : "<li>No se adjuntaron evidencias fotograficas.</li>";
+    const evidencias = evidenciasPorEquipo[equipo.id] || [];
+    const registroFotografico = evidencias.length
+      ? `<div class="galeria-evidencias">${evidencias.map((evidencia) => `<figure><img src="${evidencia.url}" alt="Evidencia: ${escaparHtml(evidencia.nombre)}"><figcaption>${escaparHtml(evidencia.nombre)}</figcaption></figure>`).join("")}</div>`
+      : "<p class=\"sin-evidencias\">No se adjuntaron evidencias fotograficas.</p>";
 
     return `
       <article class="acta${indice ? " salto-pagina" : ""}">
@@ -339,23 +344,86 @@ function crearReporteIndividual(sesion) {
         <section>
           <h3>3. Registro fotografico</h3>
           <p class="nota-evidencias">Las fotografias seleccionadas durante el registro se identifican a continuacion:</p>
-          <ul class="evidencias">${evidencias}</ul>
+          ${registroFotografico}
         </section>
       </article>`;
   }).join("");
+
+  const totalBuenos = sesion.equipos.filter((equipo) => equipo.estadoGeneral === "Bueno").length;
+  const totalMalos = sesion.equipos.filter((equipo) => equipo.estadoGeneral === "Malo").length;
+  const consolidado = `
+    <article class="acta consolidado salto-pagina">
+      <header class="cabecera-reporte">
+        <img src="assets/Logotipo.png" alt="Logotipo de la Institucion Educativa Concejo El Porvenir">
+        <div><h1>Institucion Educativa<br>Concejo El Porvenir</h1><p>Reporte de Mantenimiento Preventivo de Computadores</p></div>
+      </header>
+      <h2>Reporte consolidado de la sesion</h2>
+      <section>
+        <h3>Informacion de la jornada</h3>
+        <dl class="datos-generales"><div><dt>Fecha de mantenimiento</dt><dd>${escaparHtml(formatearFecha(sesion.fechaMantenimiento))}</dd></div><div><dt>Tecnico responsable</dt><dd>${escaparHtml(sesion.responsable)}</dd></div><div><dt>Correo de envio</dt><dd>${escaparHtml(sesion.correoDestino)}</dd></div><div><dt>Total de equipos</dt><dd>${sesion.equipos.length}</dd></div></dl>
+      </section>
+      <section>
+        <h3>Resultado general</h3>
+        <div class="metricas-reporte"><div><strong>${sesion.equipos.length}</strong><span>Equipos registrados</span></div><div class="bueno"><strong>${totalBuenos}</strong><span>Equipos buenos</span></div><div class="malo"><strong>${totalMalos}</strong><span>Equipos malos</span></div></div>
+        <table><thead><tr><th>#</th><th>Identificacion del equipo</th><th>Ubicacion</th><th>Conclusion</th></tr></thead><tbody>${sesion.equipos.map((equipo, indice) => `<tr><td>${indice + 1}</td><th scope="row">${escaparHtml(equipo.serial)}</th><td>${escaparHtml(equipo.ubicacion)}</td><td class="estado ${equipo.estadoGeneral === "Bueno" ? "bueno" : "malo"}">${escaparHtml(equipo.estadoGeneral)}</td></tr>`).join("")}</tbody></table>
+      </section>
+    </article>`;
 
   return `<!doctype html><html lang="es"><head><base href="${window.location.href}"><meta charset="utf-8"><title>Reportes de mantenimiento</title><style>
     @page { size: letter; margin: 16mm; }
     * { box-sizing: border-box; }
     body { margin: 0; color: #15131b; font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; }
     .acta { max-width: 184mm; margin: 0 auto; }
-    .cabecera-reporte { display: flex; align-items: center; justify-content: center; gap: 28mm; min-height: 43mm; padding-bottom: 9mm; border-bottom: 2px solid #24195c; text-align: center; }
-    .cabecera-reporte img { width: 30mm; max-height: 37mm; object-fit: contain; }
+    .cabecera-reporte { display: flex; align-items: center; justify-content: center; gap: 18mm; min-height: 48mm; padding-bottom: 9mm; border-bottom: 2px solid #24195c; text-align: center; }
+    .cabecera-reporte img { width: 48mm; max-height: 42mm; object-fit: contain; }
     h1, h2, h3, h4, p { margin-top: 0; } h1 { margin-bottom: 4mm; font-size: 19pt; line-height: 1.18; text-transform: uppercase; } h2 { margin: 11mm 0 8mm; font-size: 16pt; text-align: center; text-transform: uppercase; } h3 { margin: 8mm 0 4mm; padding-bottom: 2mm; border-bottom: 1px solid #b9b4d1; font-size: 13pt; text-transform: uppercase; } h4 { margin-bottom: 3mm; color: #292244; font-size: 10.5pt; }
     .cabecera-reporte p { margin: 0; font-size: 12pt; font-weight: 700; } .datos-generales { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3mm 10mm; margin: 0; } .datos-generales div { display: grid; grid-template-columns: 47mm 1fr; min-height: 8mm; border-bottom: 1px solid #dddbe5; } dt { font-weight: 700; } dd { margin: 0; } .estado { font-weight: 700; } .estado.bueno { color: #21643f; } .estado.malo { color: #a42f42; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 6mm; } th, td { padding: 2.5mm 3mm; border: 1px solid #d5d2df; text-align: left; } thead { background: #eeecf7; } tbody th { width: 62%; background: #faf9fc; } .dos-columnas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7mm; } ul { margin: 0; padding-left: 5mm; } li { margin-bottom: 1.5mm; } .observacion { margin-top: 5mm; padding: 3.5mm 4mm; border-left: 3px solid #7065ad; background: #f8f7fb; } .observacion h4 { margin-bottom: 1mm; } .observacion p { margin: 0; white-space: pre-wrap; } .nota-evidencias { margin-bottom: 3mm; } .evidencias { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2mm 8mm; padding-left: 5mm; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 6mm; } th, td { padding: 2.5mm 3mm; border: 1px solid #d5d2df; text-align: left; } thead { background: #eeecf7; } tbody th { width: 62%; background: #faf9fc; } .dos-columnas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7mm; } ul { margin: 0; padding-left: 5mm; } li { margin-bottom: 1.5mm; } .observacion { margin-top: 5mm; padding: 3.5mm 4mm; border-left: 3px solid #7065ad; background: #f8f7fb; } .observacion h4 { margin-bottom: 1mm; } .observacion p { margin: 0; white-space: pre-wrap; } .nota-evidencias { margin-bottom: 3mm; } .galeria-evidencias { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5mm; } figure { margin: 0; break-inside: avoid; } figure img { display: block; width: 100%; height: 55mm; border: 1px solid #d5d2df; object-fit: cover; } figcaption { padding-top: 1.5mm; color: #595468; font-size: 8.5pt; } .sin-evidencias { color: #595468; font-style: italic; } .metricas-reporte { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-bottom: 7mm; } .metricas-reporte div { display: grid; gap: 1mm; padding: 4mm; border: 1px solid #d5d2df; text-align: center; } .metricas-reporte strong { font-size: 19pt; } .metricas-reporte span { font-size: 9pt; font-weight: 700; } .metricas-reporte .bueno { color: #21643f; background: #eff9f2; } .metricas-reporte .malo { color: #a42f42; background: #fff2f4; }
     @media print { .salto-pagina { break-before: page; } } @media (max-width: 600px) { .cabecera-reporte { gap: 5mm; } .cabecera-reporte img { width: 25mm; } h1 { font-size: 14pt; } .datos-generales, .dos-columnas { grid-template-columns: 1fr; } }
-  </style></head><body>${equipos}</body></html>`;
+  </style></head><body>${equipos}${consolidado}</body></html>`;
+}
+
+function abrirBaseEvidencias() {
+  return new Promise((resolver, rechazar) => {
+    const solicitud = indexedDB.open(NOMBRE_BD_EVIDENCIAS, 1);
+    solicitud.onupgradeneeded = () => solicitud.result.createObjectStore(ALMACEN_EVIDENCIAS, { keyPath: "id" });
+    solicitud.onsuccess = () => resolver(solicitud.result);
+    solicitud.onerror = () => rechazar(solicitud.error);
+  });
+}
+
+async function guardarEvidencias(referencias, archivos) {
+  if (!archivos.length) return;
+  const base = await abrirBaseEvidencias();
+  const transaccion = base.transaction(ALMACEN_EVIDENCIAS, "readwrite");
+  referencias.forEach((referencia, indice) => transaccion.objectStore(ALMACEN_EVIDENCIAS).put({ ...referencia, archivo: archivos[indice] }));
+  await completarTransaccion(transaccion);
+  base.close();
+}
+
+async function obtenerEvidenciasSesion(sesion) {
+  const referencias = sesion.equipos.flatMap((equipo) => equipo.evidencias.filter((evidencia) => evidencia.id).map((evidencia) => ({ ...evidencia, equipoId: equipo.id })));
+  if (!referencias.length) return {};
+  const base = await abrirBaseEvidencias();
+  const transaccion = base.transaction(ALMACEN_EVIDENCIAS, "readonly");
+  const almacen = transaccion.objectStore(ALMACEN_EVIDENCIAS);
+  const archivos = await Promise.all(referencias.map(async (referencia) => {
+    const evidencia = await solicitarIndexedDb(almacen.get(referencia.id));
+    return evidencia ? { ...referencia, url: URL.createObjectURL(evidencia.archivo) } : null;
+  }));
+  base.close();
+  return archivos.filter(Boolean).reduce((resultado, evidencia) => {
+    (resultado[evidencia.equipoId] ||= []).push(evidencia);
+    return resultado;
+  }, {});
+}
+
+function completarTransaccion(transaccion) {
+  return new Promise((resolver, rechazar) => { transaccion.oncomplete = resolver; transaccion.onerror = () => rechazar(transaccion.error); });
+}
+
+function solicitarIndexedDb(solicitud) {
+  return new Promise((resolver, rechazar) => { solicitud.onsuccess = () => resolver(solicitud.result); solicitud.onerror = () => rechazar(solicitud.error); });
 }
 
 function crearListaReporte(elementos, mensajeVacio) {
