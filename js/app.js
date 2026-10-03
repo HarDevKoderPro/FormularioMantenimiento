@@ -188,7 +188,20 @@ botonRegistrarDesdePanel.addEventListener("click", () => {
 });
 
 botonPrepararReportes.addEventListener("click", () => {
-  alert("El siguiente requisito generara los reportes individuales y el reporte consolidado de esta sesion.");
+  const sesion = JSON.parse(localStorage.getItem(CLAVE_SESION));
+  if (!sesion || !sesion.equipos.length) {
+    alert("Registre al menos un equipo antes de generar los reportes.");
+    return;
+  }
+
+  const ventanaReporte = window.open("", "_blank");
+  if (!ventanaReporte) {
+    alert("El navegador bloqueo la ventana del reporte. Permita las ventanas emergentes e intente nuevamente.");
+    return;
+  }
+
+  ventanaReporte.document.write(crearReporteIndividual(sesion));
+  ventanaReporte.document.close();
 });
 
 function mostrarPasoEquipo() {
@@ -278,4 +291,83 @@ function renderizarPanelSesion() {
     fila.innerHTML = `<span class="numero-equipo">${indice + 1}</span><strong>${equipo.serial}</strong><span class="estado-equipo ${claseEstado}">${equipo.estadoGeneral}</span>`;
     contenedor.append(fila);
   });
+}
+
+function crearReporteIndividual(sesion) {
+  const equipos = sesion.equipos.map((equipo, indice) => {
+    const diagnostico = Object.entries(equipo.diagnostico).map(([componente, estado]) => `
+      <tr><th scope="row">${escaparHtml(nombreComponente(componente))}</th><td>${escaparHtml(estado)}</td></tr>`).join("");
+    const evidencias = equipo.evidencias.length
+      ? equipo.evidencias.map((evidencia) => `<li>${escaparHtml(evidencia.nombre)}</li>`).join("")
+      : "<li>No se adjuntaron evidencias fotograficas.</li>";
+
+    return `
+      <article class="acta${indice ? " salto-pagina" : ""}">
+        <header class="cabecera-reporte">
+          <img src="assets/Logotipo.png" alt="Logotipo de la Institucion Educativa Concejo El Porvenir">
+          <div>
+            <h1>Institucion Educativa<br>Concejo El Porvenir</h1>
+            <p>Reporte de Mantenimiento Preventivo de Computadores</p>
+          </div>
+        </header>
+
+        <h2>Acta de mantenimiento individual</h2>
+
+        <section>
+          <h3>1. Informacion general</h3>
+          <dl class="datos-generales">
+            <div><dt>Fecha de mantenimiento</dt><dd>${escaparHtml(formatearFecha(sesion.fechaMantenimiento))}</dd></div>
+            <div><dt>Tecnico responsable</dt><dd>${escaparHtml(sesion.responsable)}</dd></div>
+            <div><dt>Identificacion del equipo</dt><dd>${escaparHtml(equipo.serial)}</dd></div>
+            <div><dt>Ubicacion</dt><dd>${escaparHtml(equipo.ubicacion)}</dd></div>
+            <div><dt>Conclusion tecnica</dt><dd class="estado ${equipo.estadoGeneral === "Bueno" ? "bueno" : "malo"}">${escaparHtml(equipo.estadoGeneral)}</dd></div>
+          </dl>
+        </section>
+
+        <section>
+          <h3>2. Diagnostico y tareas realizadas</h3>
+          <h4>Diagnostico de hardware</h4>
+          <table><thead><tr><th>Componente</th><th>Estado</th></tr></thead><tbody>${diagnostico}</tbody></table>
+          <div class="dos-columnas">
+            <div><h4>Tareas de limpieza</h4>${crearListaReporte(equipo.limpieza, "No se registraron tareas de limpieza.")}</div>
+            <div><h4>Tareas de software</h4>${crearListaReporte(equipo.software, "No se registraron tareas de software.")}</div>
+          </div>
+          <div class="observacion"><h4>Detalle de hardware / observaciones</h4><p>${escaparHtml(equipo.observacionesHardware)}</p></div>
+          <div class="observacion"><h4>Detalle de software / observaciones</h4><p>${escaparHtml(equipo.observacionesSoftware)}</p></div>
+        </section>
+
+        <section>
+          <h3>3. Registro fotografico</h3>
+          <p class="nota-evidencias">Las fotografias seleccionadas durante el registro se identifican a continuacion:</p>
+          <ul class="evidencias">${evidencias}</ul>
+        </section>
+      </article>`;
+  }).join("");
+
+  return `<!doctype html><html lang="es"><head><base href="${window.location.href}"><meta charset="utf-8"><title>Reportes de mantenimiento</title><style>
+    @page { size: letter; margin: 16mm; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #15131b; font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; }
+    .acta { max-width: 184mm; margin: 0 auto; }
+    .cabecera-reporte { display: flex; align-items: center; justify-content: center; gap: 28mm; min-height: 43mm; padding-bottom: 9mm; border-bottom: 2px solid #24195c; text-align: center; }
+    .cabecera-reporte img { width: 30mm; max-height: 37mm; object-fit: contain; }
+    h1, h2, h3, h4, p { margin-top: 0; } h1 { margin-bottom: 4mm; font-size: 19pt; line-height: 1.18; text-transform: uppercase; } h2 { margin: 11mm 0 8mm; font-size: 16pt; text-align: center; text-transform: uppercase; } h3 { margin: 8mm 0 4mm; padding-bottom: 2mm; border-bottom: 1px solid #b9b4d1; font-size: 13pt; text-transform: uppercase; } h4 { margin-bottom: 3mm; color: #292244; font-size: 10.5pt; }
+    .cabecera-reporte p { margin: 0; font-size: 12pt; font-weight: 700; } .datos-generales { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3mm 10mm; margin: 0; } .datos-generales div { display: grid; grid-template-columns: 47mm 1fr; min-height: 8mm; border-bottom: 1px solid #dddbe5; } dt { font-weight: 700; } dd { margin: 0; } .estado { font-weight: 700; } .estado.bueno { color: #21643f; } .estado.malo { color: #a42f42; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 6mm; } th, td { padding: 2.5mm 3mm; border: 1px solid #d5d2df; text-align: left; } thead { background: #eeecf7; } tbody th { width: 62%; background: #faf9fc; } .dos-columnas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7mm; } ul { margin: 0; padding-left: 5mm; } li { margin-bottom: 1.5mm; } .observacion { margin-top: 5mm; padding: 3.5mm 4mm; border-left: 3px solid #7065ad; background: #f8f7fb; } .observacion h4 { margin-bottom: 1mm; } .observacion p { margin: 0; white-space: pre-wrap; } .nota-evidencias { margin-bottom: 3mm; } .evidencias { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2mm 8mm; padding-left: 5mm; }
+    @media print { .salto-pagina { break-before: page; } } @media (max-width: 600px) { .cabecera-reporte { gap: 5mm; } .cabecera-reporte img { width: 25mm; } h1 { font-size: 14pt; } .datos-generales, .dos-columnas { grid-template-columns: 1fr; } }
+  </style></head><body>${equipos}</body></html>`;
+}
+
+function crearListaReporte(elementos, mensajeVacio) {
+  const contenido = elementos.length ? elementos.map((elemento) => `<li>${escaparHtml(elemento)}</li>`).join("") : `<li>${mensajeVacio}</li>`;
+  return `<ul>${contenido}</ul>`;
+}
+
+function nombreComponente(componente) {
+  return { encendido: "Encendido", pantalla: "Pantalla", teclado: "Teclado", touchpad: "Touchpad", cargador: "Cargador" }[componente];
+}
+
+function escaparHtml(valor) {
+  const entidad = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+  return String(valor).replace(/[&<>"']/g, (caracter) => entidad[caracter]);
 }
