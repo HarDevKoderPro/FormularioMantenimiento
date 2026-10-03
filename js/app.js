@@ -23,12 +23,23 @@ const vistaEvidencias = document.querySelector("#vista-evidencias");
 const mensajeEvidencias = document.querySelector("#mensaje-evidencias");
 const fechaMantenimiento = document.querySelector("#fecha-mantenimiento");
 const textoFecha = document.querySelector("#texto-fecha");
+const selectorFecha = document.querySelector("#selector-fecha");
 const contadorEquipos = document.querySelector("#contador-equipos");
 const mensajeEquipoGuardado = document.querySelector("#mensaje-equipo-guardado");
 let evidencias = [];
 
 fechaMantenimiento.addEventListener("change", () => {
   textoFecha.textContent = fechaMantenimiento.value ? formatearFecha(fechaMantenimiento.value) : "Seleccione la fecha";
+});
+
+selectorFecha.addEventListener("click", () => {
+  if (typeof fechaMantenimiento.showPicker === "function") {
+    fechaMantenimiento.showPicker();
+    return;
+  }
+
+  fechaMantenimiento.focus();
+  fechaMantenimiento.click();
 });
 
 formulario.addEventListener("submit", (evento) => {
