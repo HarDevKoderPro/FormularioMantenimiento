@@ -36,5 +36,7 @@ Construir un formulario de mantenimiento que replique, de la mejor forma posible
 - Se agrego una conclusion tecnica obligatoria por equipo: Bueno o Malo.
 - El panel muestra los totales de equipos, buenos y malos, junto con una tabla compacta de seriales y estados.
 - Se corrigieron ajustes de interfaz movil: matriz de hardware, campo de fecha, tabla de equipos y prevencion de zoom involuntario.
-- Pendiente: crear los reportes individuales y el reporte consolidado de la sesion.
-- Pendiente: evaluar IndexedDB para conservar el contenido de las evidencias fotograficas; por ahora solo se guardan sus metadatos en `localStorage`.
+- Se implementaron las actas individuales con cabecera institucional, informacion organizada por secciones, diagnostico, tareas, observaciones y evidencias fotograficas.
+- Se implemento el reporte consolidado de la sesion con indicadores y listado de equipos.
+- Las evidencias fotograficas se conservan en IndexedDB y se incluyen como imagenes en los reportes de los registros nuevos.
+- Los reportes se adaptan a pantallas moviles, incluyen una accion para compartir o guardar como PDF y conservan el flujo de impresion habitual en escritorio.
