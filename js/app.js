@@ -309,11 +309,8 @@ function crearReportes(sesion, evidenciasPorEquipo) {
     return `
       <article class="acta${indice ? " salto-pagina" : ""}">
         <header class="cabecera-reporte">
-          <img src="assets/Logotipo.png" alt="Logotipo de la Institucion Educativa Concejo El Porvenir">
-          <div>
-            <h1>Institucion Educativa<br>Concejo El Porvenir</h1>
-            <p>Reporte de Mantenimiento Preventivo de Computadores</p>
-          </div>
+          <div class="marca-institucional-reporte"><img src="assets/Logotipo.png" alt="Institucion Educativa Concejo Municipal El Porvenir"></div>
+          <div class="estado-reporte"><span>Registro de mantenimiento</span><strong>Acta individual</strong></div>
         </header>
 
         <h2>Acta de mantenimiento individual</h2>
@@ -354,8 +351,8 @@ function crearReportes(sesion, evidenciasPorEquipo) {
   const consolidado = `
     <article class="acta consolidado salto-pagina">
       <header class="cabecera-reporte">
-        <img src="assets/Logotipo.png" alt="Logotipo de la Institucion Educativa Concejo El Porvenir">
-        <div><h1>Institucion Educativa<br>Concejo El Porvenir</h1><p>Reporte de Mantenimiento Preventivo de Computadores</p></div>
+        <div class="marca-institucional-reporte"><img src="assets/Logotipo.png" alt="Institucion Educativa Concejo Municipal El Porvenir"></div>
+        <div class="estado-reporte"><span>Registro de mantenimiento</span><strong>Reporte consolidado</strong></div>
       </header>
       <h2>Reporte consolidado de la sesion</h2>
       <section>
@@ -374,12 +371,11 @@ function crearReportes(sesion, evidenciasPorEquipo) {
     * { box-sizing: border-box; }
     body { margin: 0; color: #15131b; font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; }
     .acta { max-width: 184mm; margin: 0 auto; }
-    .cabecera-reporte { display: flex; align-items: center; justify-content: center; gap: 18mm; min-height: 48mm; padding-bottom: 9mm; border-bottom: 2px solid #24195c; text-align: center; }
-    .cabecera-reporte img { width: 48mm; max-height: 42mm; object-fit: contain; }
-    h1, h2, h3, h4, p { margin-top: 0; } h1 { margin-bottom: 4mm; font-size: 19pt; line-height: 1.18; text-transform: uppercase; } h2 { margin: 11mm 0 8mm; font-size: 16pt; text-align: center; text-transform: uppercase; } h3 { margin: 8mm 0 4mm; padding-bottom: 2mm; border-bottom: 1px solid #b9b4d1; font-size: 13pt; text-transform: uppercase; } h4 { margin-bottom: 3mm; color: #292244; font-size: 10.5pt; }
-    .cabecera-reporte p { margin: 0; font-size: 12pt; font-weight: 700; } .datos-generales { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3mm 10mm; margin: 0; } .datos-generales div { display: grid; grid-template-columns: 47mm 1fr; min-height: 8mm; border-bottom: 1px solid #dddbe5; } dt { font-weight: 700; } dd { margin: 0; } .estado { font-weight: 700; } .estado.bueno { color: #21643f; } .estado.malo { color: #a42f42; }
+    .cabecera-reporte { display: flex; align-items: center; justify-content: space-between; gap: 8mm; margin-bottom: 9mm; } .marca-institucional-reporte { width: 118mm; overflow: hidden; border: 1px solid #e8e6ee; border-radius: 4mm; background: #fff; box-shadow: 0 3mm 8mm rgb(44 35 88 / 7%); } .marca-institucional-reporte img { display: block; width: 100%; height: auto; } .estado-reporte { display: grid; gap: 1.5mm; flex: 0 0 auto; color: #686779; font-size: 10pt; text-align: right; } .estado-reporte strong { color: #392587; font-size: 11pt; }
+    h2, h3, h4, p { margin-top: 0; } h2 { margin: 11mm 0 8mm; font-size: 16pt; text-align: center; text-transform: uppercase; } h3 { margin: 8mm 0 4mm; padding-bottom: 2mm; border-bottom: 1px solid #b9b4d1; font-size: 13pt; text-transform: uppercase; } h4 { margin-bottom: 3mm; color: #292244; font-size: 10.5pt; }
+    .datos-generales { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3mm 10mm; margin: 0; } .datos-generales div { display: grid; grid-template-columns: 47mm 1fr; min-height: 8mm; border-bottom: 1px solid #dddbe5; } dt { font-weight: 700; } dd { margin: 0; } .estado { font-weight: 700; } .estado.bueno { color: #21643f; } .estado.malo { color: #a42f42; }
     table { width: 100%; border-collapse: collapse; margin-bottom: 6mm; } th, td { padding: 2.5mm 3mm; border: 1px solid #d5d2df; text-align: left; } thead { background: #eeecf7; } tbody th { width: 62%; background: #faf9fc; } .dos-columnas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7mm; } ul { margin: 0; padding-left: 5mm; } li { margin-bottom: 1.5mm; } .observacion { margin-top: 5mm; padding: 3.5mm 4mm; border-left: 3px solid #7065ad; background: #f8f7fb; } .observacion h4 { margin-bottom: 1mm; } .observacion p { margin: 0; white-space: pre-wrap; } .nota-evidencias { margin-bottom: 3mm; } .galeria-evidencias { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5mm; } figure { margin: 0; break-inside: avoid; } figure img { display: block; width: 100%; height: 55mm; border: 1px solid #d5d2df; object-fit: cover; } figcaption { padding-top: 1.5mm; color: #595468; font-size: 8.5pt; } .sin-evidencias { color: #595468; font-style: italic; } .metricas-reporte { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-bottom: 7mm; } .metricas-reporte div { display: grid; gap: 1mm; padding: 4mm; border: 1px solid #d5d2df; text-align: center; } .metricas-reporte strong { font-size: 19pt; } .metricas-reporte span { font-size: 9pt; font-weight: 700; } .metricas-reporte .bueno { color: #21643f; background: #eff9f2; } .metricas-reporte .malo { color: #a42f42; background: #fff2f4; }
-    @media print { .salto-pagina { break-before: page; } } @media (max-width: 600px) { .cabecera-reporte { gap: 5mm; } .cabecera-reporte img { width: 25mm; } h1 { font-size: 14pt; } .datos-generales, .dos-columnas { grid-template-columns: 1fr; } }
+    @media print { .salto-pagina { break-before: page; } } @media (max-width: 600px) { .cabecera-reporte { gap: 5mm; } .marca-institucional-reporte { width: 75%; } .estado-reporte { font-size: 8pt; } .datos-generales, .dos-columnas { grid-template-columns: 1fr; } }
   </style></head><body>${equipos}${consolidado}</body></html>`;
 }
 
