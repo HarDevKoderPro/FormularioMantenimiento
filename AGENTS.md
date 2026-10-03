@@ -9,6 +9,8 @@ Construir un formulario de mantenimiento que replique, de la mejor forma posible
 - Antes de modificar codigo, revisar la estructura y el comportamiento existente.
 - Mantener los cambios pequenos, claros y verificables.
 - Ejecutar las pruebas correspondientes despues de cada requisito.
+- No ejecutar `git add` ni `git commit` salvo que se solicite expresamente.
+- Despues de cada implementacion, entregar los cambios para el mensaje de commit como una lista de lineas con el formato `- Descripcion breve del cambio`.
 
 ## Decisiones tecnicas
 - La interfaz se construira con HTML, CSS y JavaScript puros.
