@@ -31,4 +31,8 @@ Construir un formulario de mantenimiento que replique, de la mejor forma posible
 - Se implementaron las evidencias fotograficas y el guardado del registro individual en la sesion.
 - Al guardar un equipo se permite iniciar otro registro independiente o finalizar la sesion.
 - Se implemento el panel de sesion con indicadores y listado de equipos registrados.
+- Se agrego una conclusion tecnica obligatoria por equipo: Bueno o Malo.
+- El panel muestra los totales de equipos, buenos y malos, junto con una tabla compacta de seriales y estados.
+- Se corrigieron ajustes de interfaz movil: matriz de hardware, campo de fecha, tabla de equipos y prevencion de zoom involuntario.
 - Pendiente: crear los reportes individuales y el reporte consolidado de la sesion.
+- Pendiente: evaluar IndexedDB para conservar el contenido de las evidencias fotograficas; por ahora solo se guardan sus metadatos en `localStorage`.
